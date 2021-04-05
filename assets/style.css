@@ -14,8 +14,12 @@ We added a border and background color to make it pop and have some contranst ag
    box-shadow: slategray 1px 1px 3px 1px;
    background-color:white;
    color: #4d4d4d;
+   display: none;
 }
-.weatherDiv .date
+.weatherDiv #date
 {
     font-family: roboto;
+}
+.weekWeather{
+    display: none;
 }

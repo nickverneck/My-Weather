@@ -27,8 +27,8 @@
         <!-- Holds the Searchbar and Cities that were previosly searched -->
         <section class="col-lg-2">
             <form class="input-group">
-                <input type="text" class="form-control" placeholder="City to Search">
-                <button type="submit" class="btn btn-warning">Search</button>
+                <input type="text" class="form-control text-search" placeholder="City to Search">
+                <button type="submit" class="btn btn-warning btn-search">Search</button>
             </form>
             <!-- cities will be filled with JS -->
             <ul class="list-group">
@@ -39,16 +39,16 @@
         <!-- Holds the Weather values retrived from the API  -->
         <section class="col-lg-6 m-5 ">
             <div class="row weatherDiv p-5">
-                <h3>CITY</h3>
-                <p class="date">date</p>
-                <h1>30F</h1>
-                <h6>Humidity</h6>
-                <h6>windspeed</h6>
-                <h6>UV</h6>
+                <h3 id ="city">CITY</h3>
+                <h3 id="date">date</h3>
+                <h1 id="temp">30F</h1>
+                <h6 id ="humidity">Humidity</h6>
+                <h6 id="wind">windspeed</h6>
+                <h6 id="uv">UV</h6>
             </div>
             <div class="row">
                
-                <div class="card-group p-2">
+                <div class="card-group p-2 weekWeather">
                     <div class="card">
                       
                       <div class="card-body">
@@ -106,6 +106,8 @@
         crossorigin="anonymous"></script>
     <!-- Jquery 3.2.1 -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <!-- moment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <!-- my Script -->
     <script src="./assets/script.js"></script>
 </body>
