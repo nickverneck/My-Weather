@@ -1,0 +1,21 @@
+body {
+    background-color: #ececec;
+}
+header{
+    background: rgb(17,174,255);
+    background: linear-gradient(40deg, rgba(17,174,255,1) 0%, rgba(55,217,255,1) 100%);
+}
+/* This Div holds the Current City
+We added a border and background color to make it pop and have some contranst against the Body background */
+.weatherDiv
+{
+   border:#a7a7a7 solid 1px;
+   border-radius: 5px;
+   box-shadow: slategray 1px 1px 3px 1px;
+   background-color:white;
+   color: #4d4d4d;
+}
+.weatherDiv .date
+{
+    font-family: roboto;
+}
