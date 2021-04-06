@@ -31,9 +31,11 @@ function search(event){
         return response.json();
       })
       .then(function (data) {
+        var icon = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
           $('.weatherDiv').css("display","flex");
         $('#city').text(data.name);
         $('#temp').text(Math.floor(data.main.temp)+'°F');
+        $('#wicon').attr("src",icon);
         $('#wind').text("Wind Speed: "+Math.floor(data.wind.speed));
         $('#humidity').text("Humidity: "+Math.floor(data.main.humidity));
         console.log(data)
@@ -54,14 +56,17 @@ function search(event){
             var divParent = document.querySelectorAll('.card-body');
             for (i=0 ; i< divParent.length; i++)
             {
+                var iconurl = "http://openweathermap.org/img/w/" + data2.daily[i].weather[0].icon + ".png";
                 // Day
                 divParent[i].children[0].textContent = moment.unix(data2.daily[i].dt).format("ddd");
                 // temp
-                divParent[i].children[1].textContent = Math.floor(data2.daily[i].temp.day)+"°F";
+                divParent[i].children[1].textContent = Math.floor(data2.daily[i].temp.eve)+"°F";
+                // icon
+                $(divParent[i].children[2]).attr('src', iconurl);
                 //wind speed
-                divParent[i].children[2].textContent = "wind: "+Math.floor(data2.daily[i].wind_speed);
+                divParent[i].children[3].textContent = "wind: "+Math.floor(data2.daily[i].wind_speed);
                 // humidty
-                divParent[i].children[3].textContent = "humidity: "+Math.floor(data2.daily[i].humidity);
+                divParent[i].children[4].textContent = "humidity: "+Math.floor(data2.daily[i].humidity);
             }
           })
     

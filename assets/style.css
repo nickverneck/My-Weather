@@ -23,3 +23,7 @@ We added a border and background color to make it pop and have some contranst ag
 .weekWeather{
     display: none;
 }
+#wicon{
+    height: fit-content;
+    width: fit-content;
+}
