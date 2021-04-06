@@ -8,8 +8,18 @@ function loadLocalStorage()
 {
     if (localStorage.length > 0)
     {
-      var cities = JSON.parse(localStorage.getItem("cities"));
-      console.log(cities);
+      var localCities = JSON.parse(localStorage.getItem("cities"));
+    //   inverted loop values to retrive the lastest search to older
+    var index =localCities.cities.length -1;
+      for (i = index; i >= 0;i--)
+      {
+          var liEl = document.createElement("li");
+          $(liEl).text(localCities.cities[i]);
+          $(liEl).attr("class","list-group-item")
+          $('.list-group').append(liEl)
+         
+      }
+      search(localCities.cities[index])
     }
 }
 
@@ -20,9 +30,8 @@ function loadLocalStorage()
 // we will also add the city into local storage for future reference
 // keep in mind units are currently in Imperial
 
-function search(event){
-    event.preventDefault()
-    var city = $('.text-search').val();
+function search(city){
+  
     var query = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+Key+'&units=imperial';
     
     var queryForecast = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+Key+'&units=imperial';
@@ -38,7 +47,7 @@ function search(event){
         $('#wicon').attr("src",icon);
         $('#wind').text("Wind Speed: "+Math.floor(data.wind.speed));
         $('#humidity').text("Humidity: "+Math.floor(data.main.humidity));
-        console.log(data)
+       
         timezone = data.timezone/60;
         var date = moment().utcOffset(timezone).format("dddd D MMMM YYYY");
         $('#date').text(date);
@@ -49,8 +58,8 @@ function search(event){
             return response2.json();
           })
           .then(function (data2) {
-              console.log(data2)
-             $('#uv').text("UV index:"+Math.floor(data2.current.uvi));
+             
+             $('#uv').text("UV index: "+Math.floor(data2.current.uvi));
             // we are going to write the code now to fill up the 5 days forecast
             $('.weekWeather').css("display","flex");
             var divParent = document.querySelectorAll('.card-body');
@@ -69,6 +78,30 @@ function search(event){
                 divParent[i].children[4].textContent = "humidity: "+Math.floor(data2.daily[i].humidity);
             }
           })
+        //   now that all data is loaded to the page Let's add the city to local storage 
+        // that way when user comes back we have a list of cities for the user
+        // so first we check if local storage has any entry 
+        // if it does we will check if the city is already in storage
+        // if its a new entry we add to local storage
+        
+       
+         if (localStorage.length>0)
+         {
+            var localCities =JSON.parse(localStorage.getItem("cities"));
+             if (!localCities.cities.includes(data.name))
+             {
+            
+            localCities.cities.push(data.name)
+            
+            localStorage.setItem("cities", JSON.stringify(localCities));
+            }
+         }
+         else
+         {
+            var currentCity = {
+                cities: [data.name]} 
+                localStorage.setItem("cities", JSON.stringify(currentCity));
+         }
     
 
 
@@ -79,5 +112,20 @@ function search(event){
 
 }
 loadLocalStorage();
-$('.btn-search').on('click',search)
+$('.btn-search').on('click',function( event ) {
+    event.preventDefault();
+    var city = $('.text-search').val();
+    search(city);
+}
+
+)
+$('.list-group').on('click',function( event ) {
+    if (event.target.classList.contains('list-group-item'))
+     {
+    var city = event.target.textContent;
+    search(city);
+     }
+}
+
+)
 })

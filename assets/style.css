@@ -27,3 +27,7 @@ We added a border and background color to make it pop and have some contranst ag
     height: fit-content;
     width: fit-content;
 }
+.list-group-item:hover
+{
+background-color: steelblue;
+}
